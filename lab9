@@ -1,0 +1,32 @@
+Изучение команды systemctl
+
+Будут запускаться при загрузке 
+abrt-journal-core   
+abrt-oops   
+abrt-vmcore  
+abrt-xorg  
+abrtd
+accounts-daemon  
+atd  
+auditd  
+autovt@
+avahi-daemon
+bluetooth
+
+Управление сервисами
+
+user1@mephi ~]$ systemctl status
+
+ 
+             +
+             ├─packagekit.service 
+             │ └─56053 /usr/libexec/packagekitd
+
+             ├─httpd.service 
+             │ ├─56129 /usr/sbin/httpd -DFOREGROUND
+             │ ├─56134 /usr/sbin/httpd -DFOREGROUND
+             │ ├─56136 /usr/sbin/httpd -DFOREGROUND
+             │ ├─56137 /usr/sbin/httpd -DFOREGROUND
+             │ └─56138 /usr/sbin/httpd -DFOREGROUND
+
+
