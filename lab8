@@ -1,0 +1,103 @@
+Использование PAM
+
+[student@localhost scripts]$ ldd /bin/login | grep pam
+	libpam.so.0 => /lib64/libpam.so.0 (0x00007f3129c9d000)
+	libpam_misc.so.0 => /lib64/libpam_misc.so.0 (0x00007f3129c98000)
+
+Расположение в файловой системе
+
+[student@localhost scripts]$ ls -l /lib64/libpam*
+lrwxrwxrwx. 1 root root    17 мар 11  2020 /lib64/libpamc.so.0 -> libpamc.so.0.82.1
+-rwxr-xr-x. 1 root root 24592 мар 11  2020 /lib64/libpamc.so.0.82.1
+lrwxrwxrwx. 1 root root    21 мар 11  2020 /lib64/libpam_misc.so.0 -> libpam_misc.so.0.82.1
+-rwxr-xr-x. 1 root root 16480 мар 11  2020 /lib64/libpam_misc.so.0.82.1
+lrwxrwxrwx. 1 root root    16 мар 11  2020 /lib64/libpam.so.0 -> libpam.so.0.84.2
+-rwxr-xr-x. 1 root root 70360 мар 11  2020 /lib64/libpam.so.0.84.2
+
+ls -l /lib64/security/
+итого 3980
+-rwxr-xr-x. 1 root root   20000 мар 11  2020 pam_access.so
+-rwxr-xr-x. 1 root root   41416 янв 30  2020 pam_afs_session.so
+-rwxr-xr-x. 1 root root   15672 янв 29  2020 pam_cap.so
+-rwxr-xr-x. 1 root root   15736 мар 11  2020 pam_chroot.so
+-rwxr-xr-x. 1 root root   37120 мар 11  2020 pam_console.so
+-rwxr-xr-x. 1 root root   19872 мар 11  2020 pam_cracklib.so
+-rwxr-xr-x. 1 root root   15816 мар 11  2020 pam_debug.so
+-rwxr-xr-x. 1 root root   15472 мар 11  2020 pam_deny.so
+-rwxr-xr-x. 1 root root   15816 мар 11  2020 pam_echo.so
+-rwxr-xr-x. 1 root root   20072 мар 11  2020 pam_env.so
+-rwxr-xr-x. 1 root root   24000 мар 11  2020 pam_exec.so
+-rwxr-xr-x. 1 root root   15744 мар 11  2020 pam_faildelay.so
+-rwxr-xr-x. 1 root root   24528 мар 11  2020 pam_faillock.so
+drwxr-xr-x. 2 root root    4096 апр 23  2020 pam_filter
+-rwxr-xr-x. 1 root root   19936 мар 11  2020 pam_filter.so
+-rwxr-xr-x. 1 root root   28736 фев 14  2020 pam_fprintd.so
+-rwxr-xr-x. 1 root root   15736 мар 11  2020 pam_ftp.so
+-rwxr-xr-x. 1 root root   15760 янв 28  2020 pam_gdm.so
+-rwxr-xr-x. 1 root root   50072 мар 11  2020 pam_gnome_keyring.so
+-rwxr-xr-x. 1 root root   19896 мар 11  2020 pam_group.so
+-rwxr-xr-x. 1 root root   15760 мар 11  2020 pam_issue.so
+-rwxr-xr-x. 1 root root   15752 мар 11  2020 pam_keyinit.so
+-rwxr-xr-x. 1 root root   20056 мар 11  2020 pam_lastlog.so
+-rwxr-xr-x. 1 root root   28064 мар 11  2020 pam_limits.so
+-rwxr-xr-x. 1 root root   15792 мар 11  2020 pam_listfile.so
+-rwxr-xr-x. 1 root root   15784 мар 11  2020 pam_localuser.so
+-rwxr-xr-x. 1 root root   15792 мар 11  2020 pam_loginuid.so
+-rwxr-xr-x. 1 root root   15776 мар 11  2020 pam_mail.so
+-rwxr-xr-x. 1 root root   15728 мар 11  2020 pam_mkhomedir.so
+-rwxr-xr-x. 1 root root   15992 мар 11  2020 pam_motd.so
+-rwxr-xr-x. 1 root root   45200 мар 11  2020 pam_namespace.so
+-rwxr-xr-x. 1 root root   15792 мар 11  2020 pam_nologin.so
+-rwxr-xr-x. 1 root root   41664 янв 29  2020 pam_oddjob_mkhomedir.so
+-rwxr-xr-x. 1 root root   20128 янв 30  2020 pam_passwdqc.so
+-rwxr-xr-x. 1 root root   15768 мар 11  2020 pam_permit.so
+-rwxr-xr-x. 1 root root   15728 мар 11  2020 pam_postgresok.so
+-rwxr-xr-x. 1 root root   24464 мар 11  2020 pam_pwhistory.so
+-rwxr-xr-x. 1 root root   15752 янв 29  2020 pam_pwquality.so
+-rwxr-xr-x. 1 root root   15736 мар 11  2020 pam_rhosts.so
+-rwxr-xr-x. 1 root root   15808 мар 11  2020 pam_rootok.so
+-rwxr-xr-x. 1 root root   15792 мар 11  2020 pam_securetty.so
+lrwxrwxrwx. 1 root root      15 мар 11  2020 pam_selinux_permit.so -> pam_sepermit.so
+-rwxr-xr-x. 1 root root   28168 мар 11  2020 pam_selinux.so
+-rwxr-xr-x. 1 root root   19912 мар 11  2020 pam_sepermit.so
+-rwxr-xr-x. 1 root root   15768 мар 11  2020 pam_shells.so
+-rwxr-xr-x. 1 root root   58176 фев 27  2020 pam_sss.so
+-rwxr-xr-x. 1 root root   19976 мар 11  2020 pam_stress.so
+-rwxr-xr-x. 1 root root   19952 мар 11  2020 pam_succeed_if.so
+-rwxr-xr-x. 1 root root  419472 апр  2  2020 pam_systemd_home.so
+-rwxr-xr-x. 1 root root  473544 апр  2  2020 pam_systemd.so
+-rwxr-xr-x. 1 root root   19880 мар 11  2020 pam_time.so
+-rwxr-xr-x. 1 root root   24672 мар 11  2020 pam_timestamp.so
+-rwxr-xr-x. 1 root root   15792 мар 11  2020 pam_tty_audit.so
+-rwxr-xr-x. 1 root root   15744 мар 11  2020 pam_umask.so
+lrwxrwxrwx. 1 root root      11 мар 11  2020 pam_unix_acct.so -> pam_unix.so
+lrwxrwxrwx. 1 root root      11 мар 11  2020 pam_unix_auth.so -> pam_unix.so
+lrwxrwxrwx. 1 root root      11 мар 11  2020 pam_unix_passwd.so -> pam_unix.so
+lrwxrwxrwx. 1 root root      11 мар 11  2020 pam_unix_session.so -> pam_unix.so
+-rwxr-xr-x. 1 root root   66072 мар 11  2020 pam_unix.so
+-rwxr-xr-x. 1 root root   19912 мар 11  2020 pam_userdb.so
+-rwxr-xr-x. 1 root root   15824 мар 11  2020 pam_usertype.so
+-rwxr-xr-x. 1 root root 1866576 мар 11  2020 pam_vbox.so
+-rwxr-xr-x. 1 root root   15784 мар 11  2020 pam_warn.so
+-rwxr-xr-x. 1 root root   15768 мар 11  2020 pam_wheel.so
+-rwxr-xr-x. 1 root root   28064 мар 11  2020 pam_xauth.so
+
+Конфигурационные файлы
+
+В /etc/pam.d/system-auth и /etc/pam.d/su 3 поля: 1- управляющая группа, 2- управляющий флаг, 3- файл
+
+Изучение модулей
+
+Изменен управляющий флаг для модуля pam_wheel на requisite, при этом пароль теперь не запрашивается, 
+т.к. теперь после завершения строки с проверкой вхождения в группу после возвращения ошибки прерывается вызов последующих команд в стеке.
+
+Качество пароля
+
+При добавлении строки  password requisite pam_pwquality.so try_first_pass local_users_only retry=5 authtok_type=MEPhI даетя 5 попыток на изменение пароля. 
+(Но пароль запрашивается 10 раз, т.к. даже в случае неудачного пароля все-равно необходимо ввести его повторно)
+
+Ограничение на вход в систему
+
+Не сработало, причину пока еще не нашла
+
+
