@@ -1,0 +1,132 @@
+Изучение свойств блочных устройств
+
+1. [student@localhost scripts]$ ls -l /dev/sda{,[123]}
+brw-rw----. 1 root disk 8, 0 дек 25 22:00 /dev/sda
+brw-rw----. 1 root disk 8, 1 дек 25 22:00 /dev/sda1
+brw-rw----. 1 root disk 8, 2 дек 25 22:00 /dev/sda2
+[student@localhost scripts]$ lsblk --list
+NAME MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda    8:0    0  300G  0 disk 
+sda1   8:1    0    1G  0 part /boot
+sda2   8:2    0  299G  0 part /
+sr0   11:0    1 1024M  0 rom  
+[student@localhost scripts]$ cat /proc/diskstats 
+   8       0 sda 108967 24982 8788168 1078046 37163 29673 3340296 1084150 0 88570 2099984 0 0 0 0 4184 179229
+   8       1 sda1 157 25 10186 1146 28 22 400 41 0 109 1126 0 0 0 0 0 0
+   8       2 sda2 108754 24957 8775618 1076163 36738 29651 3339896 1060610 0 88206 2074856 0 0 0 0 0 0
+  11       0 sr0 9 0 4 1 0 0 0 0 0 7 0 0 0 0 0 0 0
+
+8,11 - мажорный, 0,1,2 - минорный номера
+
+2. [student@localhost scripts]$ cat /proc/devices 
+Character devices:
+  1 mem
+  4 /dev/vc/0
+  4 tty
+  4 ttyS
+  5 /dev/tty
+  5 /dev/console
+  5 /dev/ptmx
+  7 vcs
+ 10 misc
+ 13 input
+ 14 sound
+ 21 sg
+ 29 fb
+116 alsa
+128 ptm
+136 pts
+162 raw
+180 usb
+188 ttyUSB
+189 usb_device
+202 cpu/msr
+203 cpu/cpuid
+226 drm
+243 aux
+244 hidraw
+245 usbmon
+246 bsg
+247 watchdog
+248 ptp
+249 pps
+250 BaseRemoteCtl
+251 rtc
+252 dax
+253 tpm
+254 gpiochip
+
+Block devices:
+  8 sd
+  9 md
+ 11 sr
+ 65 sd
+ 66 sd
+ 67 sd
+ 68 sd
+ 69 sd
+ 70 sd
+ 71 sd
+128 sd
+129 sd
+130 sd
+131 sd
+132 sd
+133 sd
+134 sd
+135 sd
+253 device-mapper
+254 mdp
+259 blkext
+
+8,65-71,128-135
+
+Создание и монтирование файловой системы
+
+[student@localhost scripts]$ sudo tune2fs -l /dev/loop0
+tune2fs 1.45.5 (07-Jan-2020)
+Filesystem volume name:   <none>
+Last mounted on:          <not available>
+Filesystem UUID:          3df3e1a6-8453-4b42-b5bb-5ae8da516ab9
+Filesystem magic number:  0xEF53
+Filesystem revision #:    1 (dynamic)
+Filesystem features:      has_journal ext_attr resize_inode dir_index filetype extent 64bit flex_bg sparse_super large_file huge_file dir_nlink extra_isize metadata_csum
+Filesystem flags:         signed_directory_hash 
+Default mount options:    user_xattr acl
+Filesystem state:         clean
+Errors behavior:          Continue
+Filesystem OS type:       Linux
+Inode count:              2560
+Block count:              10240
+Reserved block count:     512
+Free blocks:              8715 - свободных блоков
+Free inodes:              2549 
+First block:              1
+Block size:               1024
+Fragment size:            1024
+Group descriptor size:    64
+Reserved GDT blocks:      79
+Blocks per group:         8192
+Fragments per group:      8192
+Inodes per group:         1280
+Inode blocks per group:   160
+Flex block group size:    16
+Filesystem created:       Thu May 27 20:44:01 2021
+Last mount time:          Thu May 27 20:44:33 2021 - время последнего монтирования
+Last write time:          Thu May 27 20:45:35 2021
+Mount count:              1 - число монтирований
+Maximum mount count:      -1
+Last checked:             Thu May 27 20:44:01 2021
+Check interval:           0 (<none>)
+Lifetime writes:          426 kB
+Reserved blocks uid:      0 (user root)
+Reserved blocks gid:      0 (group root)
+First inode:              11
+Inode size:	          128
+Journal inode:            8
+Default directory hash:   half_md4
+Directory Hash Seed:      e4873413-eccf-4b0e-8101-049dd1ad15bf
+Journal backup:           inode blocks
+Checksum type:            crc32c
+Checksum:                 0x8450fffe
+
