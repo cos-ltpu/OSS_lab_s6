@@ -1,0 +1,99 @@
+690  ldd /bin/ls | grep selinux
+  691  ls -l /etc/selinux/
+  692  ls -l /etc/selinux/targeted/
+  693  id -Z
+  694  ls -Z /etc/passwd /etc/group /etc/shadow
+  695  ls -Z /etc/login.defs /etc/sudoers
+  696  ls -Z /usr/bin/passwd 
+  697  ls -Z /usr/sbin/useradd 
+  698  sudo file: etc/passwd
+  699  getfattr -n security.selinux /etc/passwd
+  700  getfattr -n security.selinux /etc/group 
+  701  s Zaux
+  702  ps Zaux
+  703  ps Zux
+  704  ls /proc/$$/attr
+  705  ls /proc/\$\$/attr/keycreate 
+  706  ls /proc/$$/attr/keycreate 
+  707  ls /proc/$$/attr/exec 
+  708  ls -Z /proc/$$/attr
+  709  ps Z $(pgrep passwd)
+  710  netstat -tnlpZ
+  711  sudo netstat -tnlpZ
+  712  sestatus 
+  713  getenforce
+  714  cat /sys/fs/selinux/enforce
+  715  vim /etc/selinux/config
+  716  sudo vim /etc/selinux/config
+  717  systemctl --no-wall reboot
+  718  sestatus 
+  719  getenforce
+  720  cat /sys/fs/selinux/enforce
+  721  sudo vim /etc/selinux/config
+  722  systemctl --no-wall reboot
+  723  sestatus 
+  724  getenforce
+  725  cat /sys/fs/selinux/enforce
+  726  sudo vim /etc/selinux/config
+  727  setenforce 1
+  728  sudo setenforce 1
+  729  echo 1 > /sys/fs/selinux/enforce
+  730  sudo echo 1 > /sys/fs/selinux/enforce
+  731  cat /sys/fs/selinux/enforce
+  732  sudo echo 1 >/sys/fs/selinux/enforce
+  733  getsebool -a | grep httpd
+  734  seinfo
+  735  seinfo -cfile -x
+  736  seinfo --class | grep file
+  737  sudo seinfo -cfile -x
+  738  seinfo --common file -x
+  739  seinfo --class | grep dir
+  740  seinfo --class | grep dir -x
+  741  seinfo --class dir -x
+  742  seinfo --class blk_file -x
+  743  seinfo --class chr_file -x
+  744  seinfo --class ink_file -x
+  745  seinfo --class lnk_file -x
+  746  seinfo --class fifo_file -x
+  747  seinfo --class sock_file -x
+  748  seinfo --class filesystem -x
+  749  grep 'httpd_.*_t' /etc/selinux/targeted/contexts/files/file_contexts
+  750  semanage fcontext -l
+  751  systemctl --no-wall reboot
+  752  semanage fcontext -l
+  753  sudo semanage fcontext -l
+  754  touch /usr/txt
+  755  sudo touch /usr/txt
+  756  ls -Z /usr/txt
+  757  ls -Z /usr
+  758  ls -Z /
+  759  sudo ls -Z /usr/txt
+  760  sudo chcon -t httpd_sys_content_t /usr/txt
+  761  sudo ls -Z /usr/txt
+  762  /sbin/restorecon
+  763  sudo /sbin/restorecon -f /usr/txt
+  764  sudo ls -Z /usr/txt
+  765  sudo /sbin/restorecon  /usr
+  766  sudo ls -Z /usr/txt
+  767  systemctl --no-wall reboot
+  768  sudo ls -Z /usr/txt
+  769  sudo /sbin/restorecon -v /usr
+  770  sudo ls -Z /usr/txt
+  771  sudo /sbin/restorecon -v /usr/txt
+  772  sudo ls -Z /usr/txt
+  773  sudo /usr/sbin/semanage fcontext -a -u system_u /usr/txt
+  774  sudo /usr/sbin/semanage fcontext -a -t httpd_sys_content_t /usr/txt
+  775  sudo ls -Z /usr/txt
+  776  sudo /sbin/restorecon -v /usr/txt
+  777  sudo ls -Z /usr/txt
+  778  sesearch -T -s httpd_t -t var_log_t
+  779  sesearch -T -s httpd_t -t tmp_t
+  780  sesearch -T -s usr_t -t tmp_t
+  781  sesearch --allow --source passwd_t --target shadow_t --class file
+  782  sesearch -A -s passwd_t -t passwd_exec_t -c file
+  783  sesearch -A -s unconfined_t -t passwd_exec_t -c file
+  784  sesearch -A -s unconfined_t -t passwd_t -c process
+  785  sudo sesearch --type_trans -s unconfined_t -t passwd_exec_t
+  786  ausearch -m avc -ts recent
+  787  sudo ausearch -m avc -ts recent
+  788  history
